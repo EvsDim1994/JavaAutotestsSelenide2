@@ -28,9 +28,9 @@ public class Hooks {
         Selenide.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
     }
 
- /*   @AfterEach
+   @AfterEach
     public void doAfter() {
         WebDriverRunner.getWebDriver().quit();
-    }*/
+    }
 
 }
