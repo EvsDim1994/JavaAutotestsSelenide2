@@ -42,7 +42,7 @@ public class Account extends Hooks{
             System.out.println("Currency:" + currency1);
         }
         else {
-            System.out.println("На балансе есть деньги");
+            System.out.println("На балансе уже есть деньги");
         }
     }
 }
