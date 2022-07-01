@@ -3,6 +3,7 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -28,9 +29,10 @@ public class Account extends Hooks{
         System.out.println("Currency:" + currency + "\n");
 
         if (Balance.equals("0")){
-            $x("//button[contains(text(), 'Deposit')]").shouldBe(Condition.visible).click();
+            List<SelenideElement> dep = $$x("//button[contains(text(),'Deposit')]");
+            dep.get(0).shouldBe(Condition.visible).click();
             $x("//input[@type='number']").sendKeys("1000");
-            $x("//button[@type='submit']").shouldBe(Condition.visible).click();
+            dep.get(1).shouldBe(Condition.visible).click();
             String amountmoney = "1000";
             Assertions.assertEquals(amountmoney, data.get(1).getText());
             String AccountNumber1 = data.get(0).getText();
@@ -44,5 +46,15 @@ public class Account extends Hooks{
         else {
             System.out.println("На балансе есть деньги");
         }
+        //Удаление со счета суммы, которая внесена на дипозит
+        Withdraw withdraw = new Withdraw();
+        withdraw.Test();
     }
+
+
+
 }
+
+
+
+

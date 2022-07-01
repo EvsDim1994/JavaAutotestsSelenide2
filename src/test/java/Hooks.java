@@ -25,7 +25,7 @@ public class Hooks {
         WebDriver webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
         WebDriverRunner.setWebDriver(webDriver);
-        Selenide.open("git remote add origin git@github.com:EvsDim1994/JavaAutotestsSelenide2.git/#/login");
+        Selenide.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
     }
 
   /*  @AfterEach
