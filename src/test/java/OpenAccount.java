@@ -5,7 +5,7 @@ import org.junit.jupiter.api.TestInstance;
 import static com.codeborne.selenide.Selenide.$x;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class OpenAccount {
+public class OpenAccount extends Hooks {
     @Test
     public void test() {
         $x("//button[contains(text(),'Open Account')]").shouldBe(Condition.visible).click();
@@ -13,6 +13,5 @@ public class OpenAccount {
         $x("//option[contains(text(),'Dollar')]").click();
         $x("//button[contains(text(),'Process')]").shouldBe(Condition.visible).click();
         $x("//button[contains(text(),'Customers')]").shouldBe(Condition.visible).click();
-        //добавить поиск
     }
 }
