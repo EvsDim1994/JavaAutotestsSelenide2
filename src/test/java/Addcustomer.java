@@ -3,6 +3,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -10,7 +11,7 @@ import static com.codeborne.selenide.Selenide.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Addcustomer extends Hooks {
     @Test
-    public void test(){
+    public void test() throws SQLException {
         $x("//button[contains(text(),'Bank Manager Login')]").shouldBe(Condition.visible).click();
         List<SelenideElement> addc = $$x("//button[contains(text(),'Add Customer')]");
         addc.get(0).shouldBe(Condition.visible).click();
@@ -37,7 +38,13 @@ public class Addcustomer extends Hooks {
                 for (SelenideElement el2: list2){
                     if (el2.$x("./td[2]").getText().equals("Пупкин")) {
                         String nubac = el2.$x("./td[4]").$x("./span").getText();
+                        String lastname = el2.$x("./td[2]").getText();
+                        String postcode = el2.$x("./td[3]").getText();
                         System.out.println(nubac);
+                        System.out.println(lastname);
+                        System.out.println(postcode);
+                        JDBC jdbc = new JDBC();
+                        jdbc.insert(lastname,postcode);
                     }
                 }
             }
