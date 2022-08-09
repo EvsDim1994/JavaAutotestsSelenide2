@@ -2,10 +2,8 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-
 import java.sql.SQLException;
 import java.util.List;
-
 import static com.codeborne.selenide.Selenide.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

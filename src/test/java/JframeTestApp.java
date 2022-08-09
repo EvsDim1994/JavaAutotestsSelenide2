@@ -74,7 +74,7 @@ public class JframeTestApp extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Открытие браузера
-            System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "C:/Users/79884/JavaAutotestsSelenide2/chromedriver.exe");
             WebDriver webDriver = new ChromeDriver();
             webDriver.manage().window().maximize();
             WebDriverRunner.setWebDriver(webDriver);
@@ -93,7 +93,8 @@ public class JframeTestApp extends JFrame {
 
             //Открытие счёта
             String person = firstname + " " + lastname;
-            $x("//button[contains(text(),'Open Account')]").shouldBe(Condition.visible).click();String xpath = String.format("//option[contains(text(),'%s')]", person);$x(xpath).click();
+            $x("//button[contains(text(),'Open Account')]").shouldBe(Condition.visible).click();
+            String xpath = String.format("//option[contains(text(),'%s')]", person);$x(xpath).click();
             $x("//option[contains(text(),'Dollar')]").click();
             $x("//button[contains(text(),'Process')]").shouldBe(Condition.visible).click();
             $x("//button[contains(text(),'Customers')]").shouldBe(Condition.visible).click();
