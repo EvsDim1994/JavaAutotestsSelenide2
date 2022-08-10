@@ -1,6 +1,4 @@
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import io.restassured.internal.common.assertion.Assertion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -25,6 +23,7 @@ public class SeachandDel extends Hooks {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
 
     }
 }

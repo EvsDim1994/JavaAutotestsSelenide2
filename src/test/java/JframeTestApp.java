@@ -5,13 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
+
+import com.codeborne.selenide.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import java.util.List;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -20,6 +17,9 @@ import static com.codeborne.selenide.Selenide.$x;
 public class JframeTestApp extends JFrame {
     public JButton button = new JButton("Open");
     public JButton button2 = new JButton("Cancel");
+
+    public JButton button3 = new JButton("Clear");
+    public JButton button4 = new JButton("Open table with accounts");
     public JTextField input1 = new JTextField("", 50);
     public JLabel label1 = new JLabel("Введите фимилию:");
     public JTextField input2 = new JTextField("", 50);
@@ -41,7 +41,7 @@ public class JframeTestApp extends JFrame {
         }
 
         Container container = this.getContentPane();
-        container.setLayout(new GridLayout(4, 0, 0, 0));
+        container.setLayout(new GridLayout(5, 0, 0, 0));
         label1.setHorizontalAlignment(SwingConstants.CENTER);
         label2.setHorizontalAlignment(SwingConstants.CENTER);
         label3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -67,6 +67,12 @@ public class JframeTestApp extends JFrame {
             }
         });
         container.add(button2);
+        button3.setBackground(Color.YELLOW);
+        button3.addActionListener(new Cleartextfield());
+        container.add(button3);
+        button4.setBackground(Color.GREEN);
+        button4.addActionListener(new Opentable());
+        container.add(button4);
     }
 
 
@@ -74,6 +80,7 @@ public class JframeTestApp extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Открытие браузера
+            // Указать путь для драйвера
             System.setProperty("webdriver.chrome.driver", "C:/Users/79884/JavaAutotestsSelenide2/chromedriver.exe");
             WebDriver webDriver = new ChromeDriver();
             webDriver.manage().window().maximize();
@@ -94,7 +101,8 @@ public class JframeTestApp extends JFrame {
             //Открытие счёта
             String person = firstname + " " + lastname;
             $x("//button[contains(text(),'Open Account')]").shouldBe(Condition.visible).click();
-            String xpath = String.format("//option[contains(text(),'%s')]", person);$x(xpath).click();
+            String xpath = String.format("//option[contains(text(),'%s')]", person);
+            $x(xpath).click();
             $x("//option[contains(text(),'Dollar')]").click();
             $x("//button[contains(text(),'Process')]").shouldBe(Condition.visible).click();
             $x("//button[contains(text(),'Customers')]").shouldBe(Condition.visible).click();
@@ -107,8 +115,35 @@ public class JframeTestApp extends JFrame {
             String number = $x("//tbody/tr/td/span[@ng-repeat='account in cust.accountNo']").getText();
             WebDriverRunner.getWebDriver().quit();
             String massage = "Account opened with number: " + number;
-            JOptionPane.showMessageDialog(null,massage, "Output", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, massage, "Output", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    public class Opentable implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //Открытие браузера
+            // Указать путь для драйвера
+            System.setProperty("webdriver.chrome.driver", "C:/Users/79884/JavaAutotestsSelenide2/chromedriver.exe");
+            WebDriver webDriver = new ChromeDriver();
+            webDriver.manage().window().maximize();
+            WebDriverRunner.setWebDriver(webDriver);
+            Selenide.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+            $x("//button[contains(text(),'Bank Manager Login')]").shouldBe(Condition.visible).click();
+            $x("//button[contains(text(),'Customers')]").shouldBe(Condition.visible).click();
+
+        }
+    }
+
+    public class Cleartextfield implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            input1.setText("");
+            input2.setText("");
+            input3.setText("");
         }
     }
 }
+
+
 
