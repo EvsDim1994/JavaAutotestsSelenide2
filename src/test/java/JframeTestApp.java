@@ -19,13 +19,18 @@ public class JframeTestApp extends JFrame {
     public JButton button2 = new JButton("Cancel");
 
     public JButton button3 = new JButton("Clear");
-    public JButton button4 = new JButton("Open table with accounts");
+    public JButton button4 = new JButton("Seach Account");
     public JTextField input1 = new JTextField("", 50);
     public JLabel label1 = new JLabel("Введите фимилию:");
     public JTextField input2 = new JTextField("", 50);
     public JLabel label2 = new JLabel("Введите имя:");
     public JTextField input3 = new JTextField("", 50);
     public JLabel label3 = new JLabel("Введите индекс:");
+
+    public JTextField input4 = new JTextField("", 50);
+
+    public JLabel label4 = new JLabel("Введите имя или фамилию для поиска:");
+
 
 
     public JframeTestApp() {
@@ -71,10 +76,9 @@ public class JframeTestApp extends JFrame {
         button3.addActionListener(new Cleartextfield());
         container.add(button3);
         button4.setBackground(Color.GREEN);
-        button4.addActionListener(new Opentable());
+        button4.addActionListener(new Searcaccount());
         container.add(button4);
     }
-
 
     public class Createaccount implements ActionListener {
         @Override
@@ -119,19 +123,63 @@ public class JframeTestApp extends JFrame {
         }
     }
 
-    public class Opentable implements ActionListener {
+    public class Searcaccount implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //Открытие браузера
-            // Указать путь для драйвера
-            System.setProperty("webdriver.chrome.driver", "C:/Users/79884/JavaAutotestsSelenide2/chromedriver.exe");
-            WebDriver webDriver = new ChromeDriver();
-            webDriver.manage().window().maximize();
-            WebDriverRunner.setWebDriver(webDriver);
-            Selenide.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
-            $x("//button[contains(text(),'Bank Manager Login')]").shouldBe(Condition.visible).click();
-            $x("//button[contains(text(),'Customers')]").shouldBe(Condition.visible).click();
+            JframeTestApp2 jframeTestApp2 = new JframeTestApp2();
+            jframeTestApp2.setVisible(true);
+        }
+    }
+    class JframeTestApp2 extends JFrame {
+        public JButton button5 = new JButton("Search");
+        public JTextField input4 = new JTextField("", 50);
+        public JLabel label4 = new JLabel("Введите имя или фамилию для поиска:");
 
+        public JButton button6 = new JButton("Cancel");
+
+
+        public JframeTestApp2(){
+            super("Search Account");
+            this.setBounds(200, 200, 600, 200);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            Container container2 = this.getContentPane();
+            container2.setLayout(new GridLayout(2, 0, 0, 0));
+            label4.setHorizontalAlignment(SwingConstants.CENTER);
+            container2.add(label4);
+            container2.add(input4);
+            button5.setBackground(Color.GREEN);
+            button5.addActionListener(new SeacrSelenium());
+            container2.add(button5);
+            button6.setBackground(Color.RED);
+            button6.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Container frame = button6.getParent();
+                    do
+                        frame = frame.getParent();
+                    while (!(frame instanceof JFrame));
+                    ((JFrame) frame).dispose();
+
+                }
+            });
+            container2.add(button6);
+        }
+        public class SeacrSelenium implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Открытие браузера
+                // Указать путь для драйвера
+                System.setProperty("webdriver.chrome.driver", "C:/Users/79884/JavaAutotestsSelenide2/chromedriver.exe");
+                WebDriver webDriver = new ChromeDriver();
+                webDriver.manage().window().maximize();
+                WebDriverRunner.setWebDriver(webDriver);
+                Selenide.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+                $x("//button[contains(text(),'Bank Manager Login')]").shouldBe(Condition.visible).click();
+                $x("//button[contains(text(),'Customers')]").shouldBe(Condition.visible).click();
+                String data = input4.getText();
+                $x("//input[@type='text']").sendKeys(data);
+            }
         }
     }
 
