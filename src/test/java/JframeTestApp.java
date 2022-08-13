@@ -5,13 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
 import com.codeborne.selenide.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.util.List;
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
+
+import static com.codeborne.selenide.Selenide.*;
 
 
 public class JframeTestApp extends JFrame {
@@ -68,7 +66,7 @@ public class JframeTestApp extends JFrame {
                     frame = frame.getParent();
                 while (!(frame instanceof JFrame));
                 ((JFrame) frame).dispose();
-
+                Selenide.closeWebDriver();
             }
         });
         container.add(button2);
@@ -84,12 +82,8 @@ public class JframeTestApp extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Открытие браузера
-            // Указать путь для драйвера
-            System.setProperty("webdriver.chrome.driver", "C:/Users/79884/JavaAutotestsSelenide2/chromedriver.exe");
-            WebDriver webDriver = new ChromeDriver();
-            webDriver.manage().window().maximize();
-            WebDriverRunner.setWebDriver(webDriver);
             Selenide.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+            Selenide.webdriver().driver().getWebDriver().manage().window().maximize();
             //добавление пользователя
             String lastname = input1.getText();
             String firstname = input2.getText();
@@ -117,7 +111,7 @@ public class JframeTestApp extends JFrame {
                 interruptedException.printStackTrace();
             }
             String number = $x("//tbody/tr/td/span[@ng-repeat='account in cust.accountNo']").getText();
-            WebDriverRunner.getWebDriver().quit();
+            Selenide.closeWebDriver();
             String massage = "Account opened with number: " + number;
             JOptionPane.showMessageDialog(null, massage, "Output", JOptionPane.PLAIN_MESSAGE);
         }
@@ -160,7 +154,7 @@ public class JframeTestApp extends JFrame {
                         frame = frame.getParent();
                     while (!(frame instanceof JFrame));
                     ((JFrame) frame).dispose();
-
+                    Selenide.closeWebDriver();
                 }
             });
             container2.add(button6);
@@ -169,12 +163,8 @@ public class JframeTestApp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Открытие браузера
-                // Указать путь для драйвера
-                System.setProperty("webdriver.chrome.driver", "C:/Users/79884/JavaAutotestsSelenide2/chromedriver.exe");
-                WebDriver webDriver = new ChromeDriver();
-                webDriver.manage().window().maximize();
-                WebDriverRunner.setWebDriver(webDriver);
                 Selenide.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+                Selenide.webdriver().driver().getWebDriver().manage().window().maximize();
                 $x("//button[contains(text(),'Bank Manager Login')]").shouldBe(Condition.visible).click();
                 $x("//button[contains(text(),'Customers')]").shouldBe(Condition.visible).click();
                 String data = input4.getText();
